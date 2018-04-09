@@ -128,13 +128,15 @@ class DoneCommand(BaseCommand):
 
     def perform(self, objects, *args, **kwargs):
 
-        #ListCommand().perform(objects)
+        ListCommand().perform(objects)
 
         input_function = get_input_function()
         self.user_input_secure_wrap(self.change_state, input_function, objects)
 
 
 class UndoneCommand(DoneCommand):
+
+    to_state = False
 
     @staticmethod
     def label():
