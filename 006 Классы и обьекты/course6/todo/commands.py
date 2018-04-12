@@ -53,18 +53,6 @@ class NewCommand(BaseCommand):
 
     @staticmethod
     def _load_item_classes():
-        # Dynamic load:
-        # def class_filter(klass):
-        #     return inspect.isclass(klass) \
-        #            and klass.__module__ == BaseItem.__module__ \
-        #            and issubclass(klass, BaseItem) \
-        #            and klass is not BaseItem
-
-        # classes = inspect.getmembers(
-        #         sys.modules[BaseItem.__module__],
-        #         class_filter,
-        # )
-        # return dict(classes)
 
         from models import ToDoItem, ToBuyItem, ToReadItem
 
