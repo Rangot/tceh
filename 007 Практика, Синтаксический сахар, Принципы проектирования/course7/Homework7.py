@@ -1,6 +1,6 @@
 
 import time
-from functools import wraps, reduce
+from functools import wraps
 
 
 def timeit(func):
@@ -36,17 +36,17 @@ class Count(object):
                 Count.instances[func.__name__] += 1
             else:
                 Count.instances[func.__name__] = 1
-            print('{} is called {} times'.format(func.__name__, Count.instances[func.__name__]))
-            return func
+            print('\n{} is called {} times'.format(func.__name__, Count.instances[func.__name__]))
+            return func(*args, **kwargs)
         return counter_wrap
 
 def logging(func):
     print('Decorator for {} function is working'.format(func))
     @wraps(func)
     def inner(*args, **kwargs):
-        print('\n1.\"{}\" started\n'.format(func.__name__))
+        print('1.\"{}\" started'.format(func.__name__))
         func_return = func(*args, **kwargs)
-        print('2.\'{}\' stopped\n'.format(func.__name__))
+        print('2.\'{}\' stopped'.format(func.__name__))
         return func_return
     return inner
 
@@ -66,14 +66,24 @@ def printing(text):
 
 
 @Count.count_func
+# @cancel_decorator
+@timeit
 @logging
-def short(string_param):
-    print('Speed!', string_param)
+def short(text):
+    import time
+    time.sleep(1)
+    print('Short text: ', text)
     return 'short'
 
 
-# short('YEAH')
 
+short('Ok')
+short('Ok')
+short('Ok')
+short('Ok')
+
+
+'''
 nums = [1, 4, 5, 30, 99]
 print(list(map(lambda x: x % 5, nums)))
 
@@ -88,3 +98,5 @@ print(reduce(lambda a,b: a + b, list(len(x) for x in nums4)))
 
 nums5 = ['some', 'other', 'value']
 print(list(len(x) for x in nums5))
+'''
+
