@@ -80,7 +80,6 @@ s = [1, 2, 7, 19]
 z = enumerating(s)
 print(next(z))
 print(sys.getsizeof(z))
-'''
 
 
 def zipping(*args):
@@ -108,3 +107,22 @@ u = (-5, -10, -15)
 
 z = zipping(w, t, u)
 print(next(z))
+'''
+
+
+def counter(func):
+    func.counter = 1
+    def inner(*args, **kwargs):
+        print('Функция вызвалась', func.counter, 'раз')
+        func.counter += 1
+        return func(*args, **kwargs)
+    return inner
+
+
+@counter
+def printing(text):
+    print(text, 'я сделяль')
+
+
+printing('Ура')
+printing('Ура')
