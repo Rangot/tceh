@@ -1,25 +1,17 @@
 import requests
+import json
 
 
-def get_habrahabr():
-    r = requests.get('http://habrahabr.ru/')
-    print(r.status_code)
-    print(r.headers)
-    print(r.content)
+def get_habrahabr(url: str, filename):
+    r = requests.get('https://jsonplaceholder.typicode.com/comments')
+
+    headers_dict = dict(r.headers)
+    for key, value in headers_dict.items():
+        print(key + ':', value)
+
+    with open(filename, 'wb') as file:
+        for chunk in r.iter_content(chunk_size=128):
+            file.write(chunk)
 
 
-def find_pet_by_tag(tag):
-    params = {'tags': tag}
-    headers = {
-        'Accept': 'application/json'
-        # 'Accept':'application/xml'
-    }
-    url = 'http://petstore.swagger.io/v2/pet/3'
-    r = requests.get(url, params=params, headers=headers)
-    print(r.status_code, r.headers)
-    print(r.content)
 
-
-if __name__ == '__main__':
-    # get_habrahabr()
-    find_pet_by_tag('string')
